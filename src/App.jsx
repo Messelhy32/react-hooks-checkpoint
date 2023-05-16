@@ -2,13 +2,12 @@ import "./App.css";
 import { useState } from "react";
 import Filter from "./components/Filter";
 import MovieList from "./components/MovieList";
+import AddMovie from "./components/AddMovie";
 
 function App() {
   const [filter, setFilter] = useState(false);
-  const handleClick = () => {
-    setFilter(!filter);
-  };
-  const movies = [
+  const [form, setForm] = useState(false);
+  const [movies, setMovies] = useState([
     {
       title: "Forrest Gump",
       description:
@@ -57,11 +56,28 @@ function App() {
         "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg",
       rating: 9.0,
     },
-  ];
+  ]);
+  const handleFilter = () => {
+    setFilter(!filter);
+  };
+  const handleForm = () => {
+    setForm(!form);
+  };
+  const addMovie = (movie) => {
+    setMovies([...movies, movie]);
+  };
+
   return (
     <>
       <button
-        onClick={handleClick}
+        onClick={handleForm}
+        className="block text-center m-auto my-4 rounded-sm py-2 px-3 bg-slate-100 text-slate-800 font-semibold"
+      >
+        {!form ? "Add Movie" : "x"}
+      </button>
+      {form && <AddMovie addMovie={addMovie} />}
+      <button
+        onClick={handleFilter}
         className={
           filter
             ? "rounded-sm py-2 px-3 mb-4 bg-red-200 text-red-950 font-semibold"
@@ -74,5 +90,4 @@ function App() {
     </>
   );
 }
-
 export default App;
