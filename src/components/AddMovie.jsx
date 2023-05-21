@@ -2,17 +2,21 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-function AddMovie({ addMovie }) {
+function AddMovie({ addMovie, movies }) {
   const initialValues = {
     title: "",
     description: "",
     posterURL: "",
     rating: "",
+    id: "",
+    trailer: "",
   };
   const validationSchema = Yup.object().shape({
+    id: Yup.number(),
     title: Yup.string().required("Title is required"),
     description: Yup.string().required("Description is required"),
     posterURL: Yup.string(),
+    trailer: Yup.string(),
     rating: Yup.number()
       .required("Rating is required")
       .typeError("Rating must be a number")
@@ -20,10 +24,10 @@ function AddMovie({ addMovie }) {
       .max(10, "Rating must be between 1 and 10"),
   });
   const handleSubmit = (values, { resetForm }) => {
+    values.id = movies[movies.length - 1].id + 1;
     addMovie(values);
     resetForm();
   };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -64,6 +68,17 @@ function AddMovie({ addMovie }) {
             {errors.posterURL && touched.posterURL && (
               <span className="text-red-600 font-semibold">
                 {errors.posterURL}
+              </span>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="trailer" className="mr-2">
+              Trailer URL
+            </label>
+            <Field id="trailer" name="trailer" className="border mr-2" />
+            {errors.trailer && touched.trailer && (
+              <span className="text-red-600 font-semibold">
+                {errors.trailer}
               </span>
             )}
           </div>

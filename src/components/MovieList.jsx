@@ -5,6 +5,7 @@ function MovieList({ movies }) {
     <div className="grid gap-4 grid-cols-3">
       {movies.map((movie) => (
         <MovieCard
+          id={movie.id}
           key={movie.title}
           title={movie.title}
           description={movie.description}

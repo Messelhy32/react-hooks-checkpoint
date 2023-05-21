@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router";
 function MovieCard(props) {
+  const navigate = useNavigate();
   return (
     <>
       <div>
@@ -9,6 +11,7 @@ function MovieCard(props) {
         <p className="mt-2 text-sm font-bold rounded-md bg-slate-400 text-white p-1 w-40 m-auto">
           {props.rating}/10
         </p>
+        <button onClick={() => navigate(`/${props.id}`)}>More Info</button>
       </div>
     </>
   );
@@ -16,7 +19,8 @@ function MovieCard(props) {
 MovieCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.any.isRequired,
+  id: PropTypes.any,
   children: PropTypes.any.isRequired,
 };
 export default MovieCard;
