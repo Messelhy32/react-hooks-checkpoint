@@ -1,6 +1,9 @@
 import MovieCard from "./MovieCard";
 import PropTypes from "prop-types";
-function MovieList({ movies }) {
+import { useSelector } from "react-redux";
+function MovieList() {
+  const movies = useSelector((state) => state.movies.movieList);
+  console.log(movies);
   return (
     <div className="grid gap-4 grid-cols-3">
       {movies.map((movie) => (

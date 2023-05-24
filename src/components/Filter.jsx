@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from "react-redux";
 import MovieCard from "./MovieCard";
-function Filter({ movies }) {
-  const sortedMovies = movies.sort((a, b) => b.rating - a.rating);
+function Filter() {
+  const movies = useSelector((state) => state.movies.movieList);
+  const sortedMovies = movies.slice().sort((a, b) => b.rating - a.rating);
   return (
     <div className="grid gap-4 grid-cols-3">
       {sortedMovies.map((movie) => (

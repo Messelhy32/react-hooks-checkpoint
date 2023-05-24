@@ -3,7 +3,7 @@ import Filter from "../components/Filter";
 import MovieList from "../components/MovieList";
 import AddMovie from "../components/AddMovie";
 import { useState } from "react";
-function HomePage({ movies, addMovie, filter, handleFilter }) {
+function HomePage({ filter, handleFilter }) {
   const [form, setForm] = useState(false);
   const handleForm = () => {
     setForm(!form);
@@ -16,14 +16,14 @@ function HomePage({ movies, addMovie, filter, handleFilter }) {
       >
         {!form ? "Add Movie" : "x"}
       </button>
-      {form && <AddMovie addMovie={addMovie} movies={movies} />}
+      {form && <AddMovie />}
       <button
         onClick={handleFilter}
         className="rounded-sm py-2 px-3 mb-4 bg-emerald-200 text-emerald-950 font-semibold"
       >
         Filtered List
       </button>
-      {filter ? <Filter movies={movies} /> : <MovieList movies={movies} />}
+      {filter ? <Filter /> : <MovieList />}
     </div>
   );
 }

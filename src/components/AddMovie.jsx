@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
-function AddMovie({ addMovie, movies }) {
+import { useSelector, useDispatch } from "react-redux";
+import { addMovie } from "../store/actions/addMovie";
+function AddMovie() {
+  const movies = useSelector((state) => state.movies.movieList);
+  const dispatch = useDispatch();
+  const HandleAddMovie = (movie) => {
+    dispatch(addMovie(movie));
+  };
   const initialValues = {
     title: "",
     description: "",
@@ -10,6 +16,7 @@ function AddMovie({ addMovie, movies }) {
     rating: "",
     id: "",
     trailer: "",
+    favorite: false,
   };
   const validationSchema = Yup.object().shape({
     id: Yup.number(),
@@ -25,7 +32,8 @@ function AddMovie({ addMovie, movies }) {
   });
   const handleSubmit = (values, { resetForm }) => {
     values.id = movies[movies.length - 1].id + 1;
-    addMovie(values);
+    values.favorite = false;
+    HandleAddMovie(values);
     resetForm();
   };
   return (
